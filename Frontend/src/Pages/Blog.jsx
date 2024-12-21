@@ -29,7 +29,7 @@ export default function Blog() {
   const onSubmitComment = async (e) => {
     e.preventDefault();
     if (!user) {
-      toast.error("please Login");
+      toast.error("Please login to comment.");
     } else {
       try {
         const request = await post("/comment/addcomment", {
@@ -41,7 +41,6 @@ export default function Blog() {
         console.log(response);
         setLoaddata((prevState) => !prevState); // Toggle loaddata
         if (response.success) {
-          // alert(response.message);
           toast.success(response.message);
           setComment("");
         }
@@ -52,7 +51,6 @@ export default function Blog() {
           error.response.data &&
           error.response.data.message
         ) {
-          // setError(error.response.data.message); // Set error message from server response
           toast.error(error.response.data.message);
         } else {
           toast.error("An unexpected error occurred. Please try again.");
@@ -62,18 +60,19 @@ export default function Blog() {
   };
 
   return (
-    <div className="container text-white mt-5 mb-5">
+    <div className="container mt-5 mb-5 text-white">
       <div className="row">
         <div className="col-md-12">
-          <h1 className="fw-bold text-white mb-4 display-4">
-            {post && post.title}
+          <h1 className="fw-bold text-white mb-4 display-4 text-center">
+            {singlePost && singlePost.title}
           </h1>
+          
           <img
             src={singlePost && `${BaseUrl}/images/${singlePost.image}`}
-            alt="Exploring the Art of Writing"
-            className="img-fluid mb-4"
+            alt="Blog Post"
+            className="img-fluid mb-4 rounded shadow-lg"
             style={{
-              borderRadius: "10px",
+              borderRadius: "15px",
               maxHeight: "500px",
               objectFit: "cover",
               width: "100%",
@@ -82,49 +81,58 @@ export default function Blog() {
 
           <p className="mb-5">{singlePost && singlePost.desc}</p>
 
-          {/* <div className="bg-dark p-4 rounded mb-5">
-            <h2 className="text-white mb-4">Big Dedication</h2>
-            <p className="mb-0">Dedication is key to mastering the art of writing. As with any craft, the more you practice, the better you become. This article encourages you to write daily, seek feedback, and never stop learning. Your dedication to improving your writing skills will be rewarded with clearer, more compelling communication.</p>
-          </div> */}
-
-          <hr />
+          <hr className="text-white" />
 
           <h3 className="mt-5 mb-4">Leave a Comment</h3>
           <form>
             <div className="mb-3">
-              <label htmlFor="comment" className="form-label">
-                Comment
-              </label>
+              <label htmlFor="comment" className="form-label">Comment</label>
               <textarea
                 className="form-control"
                 id="comment"
                 rows="4"
-                placeholder="Write your comment here"
+                placeholder="Write your comment here..."
                 required
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
+                style={{
+                  borderRadius: "8px",
+                  padding: "10px",
+                  backgroundColor: "#2c3e50",
+                  color: "white",
+                  border: "1px solid #34495e",
+                }}
               ></textarea>
             </div>
             <button
               type="submit"
-              className="btn btn-primary"
+              className="btn btn-primary mt-3"
               onClick={onSubmitComment}
+              style={{
+                backgroundColor: "#2980b9",
+                border: "none",
+                padding: "10px 20px",
+                borderRadius: "8px",
+                transition: "background-color 0.3s ease",
+              }}
+              onMouseOver={(e) => (e.target.style.backgroundColor = "#3498db")}
+              onMouseOut={(e) => (e.target.style.backgroundColor = "#2980b9")}
             >
               Submit Comment
             </button>
           </form>
 
-          <hr />
+          <hr className="text-white" />
 
           <h3 className="mt-5 mb-4">Comments</h3>
           {singlePost &&
             singlePost.comments &&
-            singlePost.comments.map((elem) => {
+            singlePost.comments.map((elem, index) => {
               return (
-                <div className="bg-secondary p-3 rounded mb-3 d-flex">
+                <div key={index} className="bg-secondary p-3 rounded mb-3 d-flex">
                   <img
                     src={`${BaseUrl}/images/${elem.userId.profile}`}
-                    alt="John Doe"
+                    alt="User"
                     className="rounded-circle me-3"
                     style={{
                       width: "50px",

@@ -4,40 +4,67 @@ import {
   FaPlusSquare,
   FaUsers,
   FaFileAlt,
-  FaComments,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 export default function Sidebar() {
   return (
-    <div className="bg-dark text-white vh-100" style={{ width: "250px" }}>
+    <div
+      className="bg-dark text-white vh-100"
+      style={{
+        width: "250px",
+        boxShadow: "2px 0 8px rgba(0, 0, 0, 0.1)", // Add shadow for depth
+      }}
+    >
       <div className="p-3">
         <ul className="nav flex-column">
+          {/* Dashboard Link */}
           <li className="nav-item mb-3">
-            <Link className="nav-link text-white" to="/dashboard">
-              <FaHome className="me-2" /> Dashboard
+            <Link
+              className="nav-link text-white d-flex align-items-center"
+              to="/dashboard"
+              style={{ fontSize: "18px" }}
+            >
+              <FaHome className="me-2" style={{ fontSize: "20px" }} />
+              Dashboard
             </Link>
           </li>
+
+          {/* Add Post Link */}
           <li className="nav-item mb-3">
-            <Link className="nav-link text-white" to="/dashboard/addpost">
-              <FaPlusSquare className="me-2" /> Add Post
+            <Link
+              className="nav-link text-white d-flex align-items-center"
+              to="/dashboard/addpost"
+              style={{ fontSize: "18px" }}
+            >
+              <FaPlusSquare className="me-2" style={{ fontSize: "20px" }} />
+              Add Post
             </Link>
           </li>
+
+          {/* All Users Link */}
           <li className="nav-item mb-3">
-            <Link className="nav-link text-white" to="/dashboard/users">
-              <FaUsers className="me-2" /> All Users
+            <Link
+              className="nav-link text-white d-flex align-items-center"
+              to="/dashboard/users"
+              style={{ fontSize: "18px" }}
+            >
+              <FaUsers className="me-2" style={{ fontSize: "20px" }} />
+              All Users
             </Link>
           </li>
+
+          {/* All Posts Link */}
           <li className="nav-item mb-3">
-            <Link className="nav-link text-white" to="/dashboard/allposts">
-              <FaFileAlt className="me-2" /> All Posts
+            <Link
+              className="nav-link text-white d-flex align-items-center"
+              to="/dashboard/allposts"
+              style={{ fontSize: "18px" }}
+            >
+              <FaFileAlt className="me-2" style={{ fontSize: "20px" }} />
+              All Posts
             </Link>
           </li>
-          {/* <li className="nav-item mb-3">
-            <a className="nav-link text-white" href="#">
-              <FaComments className="me-2" /> All Comments
-            </a>
-          </li> */}
         </ul>
       </div>
     </div>

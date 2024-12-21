@@ -17,7 +17,6 @@ export default function LatestPost() {
         const request = await get("/blog/GetPosts");
         const response = request.data;
         setBlogs(response.posts);
-        console.log("blogs", response);
       } catch (error) {
         console.log(error);
       }
@@ -35,47 +34,98 @@ export default function LatestPost() {
   };
 
   return (
-    <>
-      <div className="container">
-        <div className="mb-5 text-center">
-          <h2 className="fw-bold fs-1 text-white">Recent Posts</h2>
-        </div>
-        <div className="row">
-          {blogs &&
-            blogs.map((elem) => {
-              return (
-                <div className="col-md-4 mb-4" key={elem._id}>
-                  <div
-                    className="card border-success"
+    <div className="container">
+      <div className="mb-5 text-center"></div>
+      <div className="row g-4">
+        {blogs &&
+          blogs.map((elem) => {
+            return (
+              <div className="col-md-4 d-flex" key={elem._id}>
+                <div
+                  className="card"
+                  style={{
+                    border: "none",
+                    borderRadius: "15px",
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                    backgroundColor: "#f7f7f7", // Soft neutral light gray
+                    overflow: "hidden",
+                    transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                    display: "flex",
+                    flexDirection: "column",
+                    height: "100%", // Ensure the card takes full available height
+                    width: "100%", // Ensure the card width is consistent
+                    maxWidth: "400px", // Increased max-width for a wider card
+                    margin: "0 auto", // Center the card horizontally
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "translateY(-5px)";
+                    e.currentTarget.style.boxShadow =
+                      "0 8px 12px rgba(0, 0, 0, 0.2)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.boxShadow =
+                      "0 4px 6px rgba(0, 0, 0, 0.1)";
+                  }}
+                >
+                  <img
+                    src={`${BaseUrl}/images/${elem.image}`}
+                    className="card-img-top"
+                    alt="Blog Post"
                     style={{
-                      borderWidth: "2px",
-                      backgroundColor: "#2b2b2b",
-                      borderRadius: "10px",
-                      overflow: "hidden",
+                      height: "200px",
+                      objectFit: "cover",
+                      width: "100%", // Ensure full width
+                    }}
+                  />
+                  <div
+                    className="card-body d-flex flex-column"
+                    style={{
+                      padding: "20px",
+                      flex: 1,
+                      display: "flex", // Ensures the body takes the remaining space
+                      flexDirection: "column",
                     }}
                   >
-                    <img
-                      src={`${BaseUrl}/images/${elem.image}`}
-                      className="card-img-top img-fluid"
-                      alt="Blog Post 1"
-                      style={{ height: "200px", objectFit: "cover" }}
-                    />
-                    <div className="card-body bg-dark text-white">
-                      <h5 className="card-title">{elem.title}</h5>
-                      <p className="card-text">{truncateText(elem.desc, 20)}</p>
-                      <button
-                        className="btn btn-primary w-100 mt-3"
-                        onClick={() => handleBlog(elem._id)}
-                      >
-                        Read Article
-                      </button>
-                    </div>
+                    <h5
+                      className="card-title"
+                      style={{
+                        color: "#333",
+                        fontWeight: "600",
+                        fontSize: "1.1rem",
+                      }}
+                    >
+                      {elem.title}
+                    </h5>
+                    <p
+                      className="card-text"
+                      style={{
+                        color: "#777",
+                        fontSize: "0.9rem",
+                        flex: 1,
+                      }}
+                    >
+                      {truncateText(elem.desc, 20)}
+                    </p>
+                    <button
+                      className="btn"
+                      style={{
+                        width: "100%",
+                        backgroundColor: "#4CAF50",
+                        color: "white",
+                        fontWeight: "500",
+                        borderRadius: "8px",
+                      }}
+                      onClick={() => handleBlog(elem._id)}
+                    >
+                      Read Article
+                    </button>
                   </div>
                 </div>
-              );
-            })}
-        </div>
+              </div>
+            );
+          })}
       </div>
-    </>
+    </div>
   );
 }

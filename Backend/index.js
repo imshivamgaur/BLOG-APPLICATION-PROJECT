@@ -13,7 +13,9 @@ dotenv.config();
 
 const PORT = process.env.PORT || 4000;
 const app = express();
+
 DBCon();
+
 app.use(express.json());
 app.get("/", (req, res) => {
   res.send("hello from server");
@@ -32,5 +34,5 @@ app.use("/comment", CommentRoutes);
 app.use("/public", PublicRoutes);
 
 app.listen(PORT, () => {
-  console.log(`App is running on Port ${PORT}`);
+  console.log(`Server is running on Port ${PORT}`);
 });

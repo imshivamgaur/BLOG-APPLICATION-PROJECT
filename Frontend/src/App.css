@@ -7,10 +7,7 @@
 body{
   background-color: #0E1428;
 }
-/* Navbar Styles */
-.navbar {
-  background-color: #1F2936;
-}
+
 
 .btn_sign {
   color: white;
@@ -34,23 +31,12 @@ body{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url('https://images.unsplash.com/photo-1705157434209-7961a12a1ba1?q=80&w=2668&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  background-image: url('https://images.unsplash.com/photo-1733690567161-326d5294d3bb?q=80&w=2544&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
   background-size: cover;
   background-position: center;
   color: white;
 
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
-}
-
-.hero-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4); /* Adjust the value to control brightness */
-  z-index: 1;
 }
 
 .hero-section h1,
@@ -69,6 +55,19 @@ body{
   margin-top: 20px;
 }
 
+
+/* Navbar css */
+/* Custom CSS for Navbar Logo */
+.logo-hover {
+  font-size: 2.5rem; /* Adjust font size */
+  color: #adb5bd; /* Light gray color on hover */
+  font-weight: 700; /* Bold font for better visibility */
+  transition: color 0.3s ease; /* Smooth color change */
+}
+
+.logo-hover:hover {
+  color: #f8f9fa; /* Light white color (off-white) */
+}
 
 
 /* Prfoile page css  */

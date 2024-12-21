@@ -6,12 +6,6 @@ import toast from "react-hot-toast";
 export default function User() {
   const [Users, setUsers] = useState([]);
   const [loadedata, setLoadedata] = useState(false);
-  const users = [
-    { id: 1, name: "John Doe", email: "john@example.com" },
-    { id: 2, name: "Jane Smith", email: "jane@example.com" },
-    { id: 3, name: "Michael Brown", email: "michael@example.com" },
-    // Add more users as needed
-  ];
 
   const handleDelete = async (userId) => {
     // Display a confirmation dialog
@@ -32,17 +26,7 @@ export default function User() {
         }
       } catch (error) {
         console.error("Error deleting user:", error);
-
-        if (
-          error.response &&
-          error.response.data &&
-          error.response.data.message
-        ) {
-          // setError(error.response.data.message); // Set error message from server response
-          toast.error(error.response.data.message);
-        } else {
-          toast.error("An unexpected error occurred. Please try again.");
-        }
+        toast.error("An unexpected error occurred. Please try again.");
       }
     }
   };
@@ -50,22 +34,22 @@ export default function User() {
   useEffect(() => {
     const getuser = async () => {
       try {
-        const resposne = await get("/dashboard/users");
-        const data = resposne.data;
+        const response = await get("/dashboard/users");
+        const data = response.data;
         setUsers(data.Users);
-        console.log(data);
       } catch (error) {
         console.log(error);
       }
     };
     getuser();
   }, [loadedata]);
+
   return (
-    <div className="container ">
-      <h1 className=" text-white mb-4">Users</h1>
+    <div className="container py-5">
+      <h1 className="text-white text-center mb-4">Users</h1>
       <div className="table-responsive">
-        <table className="table table-striped table-dark">
-          <thead>
+        <table className="table table-striped table-hover table-bordered table-dark">
+          <thead className="thead-dark">
             <tr>
               <th scope="col">#</th>
               <th scope="col">Name</th>
@@ -82,10 +66,17 @@ export default function User() {
                   <td>{user.email}</td>
                   <td>
                     <button
-                      className="btn btn-danger"
+                      className="btn btn-danger text-white d-flex align-items-center px-3 py-2 rounded"
+                      style={{
+                        backgroundColor: "#e74c3c",
+                        border: "none",
+                        fontSize: "16px",
+                        fontWeight: "bold",
+                        transition: "all 0.3s ease",
+                      }}
                       onClick={() => handleDelete(user._id)}
                     >
-                      <FaTrashAlt /> Delete
+                      <FaTrashAlt className="mr-2" /> Delete
                     </button>
                   </td>
                 </tr>
