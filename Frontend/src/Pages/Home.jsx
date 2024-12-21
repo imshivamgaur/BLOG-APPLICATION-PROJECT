@@ -95,7 +95,7 @@ export default function Home() {
         <p>
           Made with ❤️ by{" "}
           <a
-            href="https://github.com/imshivamgaur"
+            href="https://github.com/imshivamgaur/BLOG-APPLICATION-PROJECT"
             target="_blank"
             rel="noreferrer"
             style={{ color: "#4caf50", textDecoration: "none" }}
