@@ -29,12 +29,12 @@ body{
 /* Hero Section */
 .hero-section {
   position: relative;
-  padding: 150px 20px;
+  padding: 200px 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url('https://images.unsplash.com/reserve/bOvf94dPRxWu0u3QsPjF_tree.jpg?q=80&w=2676&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  background-image: url('https://images.unsplash.com/photo-1705157434209-7961a12a1ba1?q=80&w=2668&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
   background-size: cover;
   background-position: center;
   color: white;
