@@ -1,19 +1,16 @@
 import React from "react";
-import {
-  FaHome,
-  FaPlusSquare,
-  FaUsers,
-  FaFileAlt,
-} from "react-icons/fa";
+import { FaHome, FaPlusSquare, FaUsers, FaFileAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 export default function Sidebar() {
   return (
     <div
-      className="bg-dark text-white vh-100"
+      className="bg-dark text-white"
       style={{
         width: "250px",
+        minHeight: "100vh", // Ensure the sidebar fills at least the full screen height
         boxShadow: "2px 0 8px rgba(0, 0, 0, 0.1)", // Add shadow for depth
+        overflowY: "auto", // Allow vertical scrolling if content exceeds sidebar height
       }}
     >
       <div className="p-3">
