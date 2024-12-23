@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { post } from "../services/Endpoint";
 import toast from "react-hot-toast";
@@ -12,6 +12,13 @@ export default function Register() {
     image: null, // To store the selected image
   });
 
+  useEffect(() => {
+    document.body.style.overflow = "hidden"; // Remove scrollbar
+    return () => {
+      document.body.style.overflow = "auto"; // Restore scrollbar on unmount
+    };
+  }, []);
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setValue({ ...value, image: file });
@@ -24,12 +31,11 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Create FormData object
     const formData = new FormData();
     formData.append("FullName", value.fullName);
     formData.append("email", value.email);
     formData.append("password", value.password);
-    formData.append("profile", value.image); // Using 'profile' as the key for the image
+    formData.append("profile", value.image);
 
     try {
       const response = await post("/auth/register", formData, {
@@ -46,13 +52,11 @@ export default function Register() {
       console.log("register api", data);
     } catch (error) {
       console.log(error);
-      console.error("login error", error);
       if (
         error.response &&
         error.response.data &&
         error.response.data.message
       ) {
-        // setError(error.response.data.message); // Set error message from server response
         toast.error(error.response.data.message);
       } else {
         toast.error("An unexpected error occurred. Please try again.");
@@ -61,118 +65,130 @@ export default function Register() {
   };
 
   return (
-    <>
-      <section className="bg-light">
-        <div className="container d-flex flex-column align-items-center justify-content-center min-vh-100 py-4">
-          <a
-            href="#"
-            className="mb-4 text-dark text-decoration-none d-flex align-items-center"
-          >
-            <img
-              className="me-2"
-              src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
-              alt="logo"
-              width="32"
-              height="32"
-            />
-            <Link to={"/"}>
-              {" "}
-              <span className="h4 mb-0 fw-bold">Blog Application</span>
-            </Link>
-          </a>
-          <div className="card shadow-sm w-100" style={{ maxWidth: "400px" }}>
-            <div className="card-body p-4">
-              <h1 className="h5  fw-bold text-dark">Create an account</h1>
-              <form onSubmit={handleSubmit}>
-                <div className=" text-center">
-                  <label htmlFor="image" className="form-label">
-                    Profile Picture
-                  </label>
-                  <div className="d-flex justify-content-center ">
-                    <img
-                      src={
-                        value.image
-                          ? URL.createObjectURL(value.image)
-                          : "https://via.placeholder.com/150"
-                      }
-                      alt="avatar"
-                      className="rounded-circle"
-                      width="100"
-                      height="100"
-                      style={{ cursor: "pointer" }}
-                      onClick={handleImageClick} // Click event to trigger file input
-                    />
-                  </div>
-                  <input
-                    type="file"
-                    className="form-control d-none" // Hide the file input
-                    id="image"
-                    accept="image/*"
-                    onChange={handleImageChange}
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="fullName" className="form-label">
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="fullName"
-                    placeholder="John Doe"
-                    required
-                    value={value.fullName}
-                    onChange={(e) =>
-                      setValue({ ...value, fullName: e.target.value })
-                    }
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="email" className="form-label">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="email"
-                    placeholder="xyz@gmail.com"
-                    required
-                    value={value.email}
-                    onChange={(e) =>
-                      setValue({ ...value, email: e.target.value })
-                    }
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="password" className="form-label">
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    id="password"
-                    placeholder="••••••••"
-                    required
-                    value={value.password}
-                    onChange={(e) =>
-                      setValue({ ...value, password: e.target.value })
-                    }
-                  />
-                </div>
-                <button type="submit" className="btn btn-primary w-100">
-                  Sign up
-                </button>
-              </form>
-              <p className="mt-3 mb-0 text-muted">
-                Already have an account?{" "}
-                <Link to="/login" className="text-primary">
-                  Sign in
-                </Link>
-              </p>
+    <div className="container d-flex flex-column align-items-center justify-content-center min-h-100vh ">
+      <a
+        href="#"
+        className="mb-4 text-dark text-decoration-none d-flex align-items-center"
+      >
+        <Link to={"/"}>
+          <span className="h4 mb-0 fw-bold">SR BLOG APP</span>
+        </Link>
+      </a>
+      <div
+        className="card w-100"
+        style={{
+          maxWidth: "400px",
+          backgroundColor: "#222", // Darker card background
+          borderRadius: "15px", // Rounded corners for the card
+          transition: "all 0.3s ease", // Transition for smooth effects
+          padding: "20px", // Add padding inside the card to fit the content naturally
+        }}
+      >
+        <div className="card-body p-4">
+          <h1 className="h5 mb-4 fw-bold text-light text-center">
+            Create an account
+          </h1>
+          <form onSubmit={handleSubmit}>
+            <div className="text-center mb-4">
+              <label htmlFor="image" className="form-label text-light">
+                Profile Picture
+              </label>
+              <div className="d-flex justify-content-center">
+                <img
+                  src={
+                    value.image
+                      ? URL.createObjectURL(value.image)
+                      : "https://via.placeholder.com/150"
+                  }
+                  alt="avatar"
+                  className="rounded-circle"
+                  width="100"
+                  height="100"
+                  style={{ cursor: "pointer" }}
+                  onClick={handleImageClick}
+                />
+              </div>
+              <input
+                type="file"
+                className="form-control d-none"
+                id="image"
+                accept="image/*"
+                onChange={handleImageChange}
+              />
             </div>
-          </div>
+            <div className="mb-3">
+              <label htmlFor="fullName" className="form-label text-light">
+                Full Name
+              </label>
+              <input
+                type="text"
+                className="form-control bg-dark text-light border-secondary rounded-3"
+                id="fullName"
+                placeholder="John Doe"
+                required
+                value={value.fullName}
+                onChange={(e) =>
+                  setValue({ ...value, fullName: e.target.value })
+                }
+                style={{
+                  transition: "all 0.3s ease",
+                }}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label text-light">
+                Email
+              </label>
+              <input
+                type="email"
+                className="form-control bg-dark text-light border-secondary rounded-3"
+                id="email"
+                placeholder="xyz@gmail.com"
+                required
+                value={value.email}
+                onChange={(e) => setValue({ ...value, email: e.target.value })}
+                style={{
+                  transition: "all 0.3s ease",
+                }}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="password" className="form-label text-light">
+                Password
+              </label>
+              <input
+                type="password"
+                className="form-control bg-dark text-light border-secondary rounded-3"
+                id="password"
+                placeholder="••••••••"
+                required
+                value={value.password}
+                onChange={(e) =>
+                  setValue({ ...value, password: e.target.value })
+                }
+                style={{
+                  transition: "all 0.3s ease",
+                }}
+              />
+            </div>
+            <button
+              type="submit"
+              className="btn btn-success w-100 py-2 rounded-3"
+              style={{
+                transition: "all 0.3s ease",
+              }}
+            >
+              Sign up
+            </button>
+          </form>
+          <p className="mt-3 mb-0 text-muted text-center">
+            Already have an account?{" "}
+            <Link to="/login" className="text-success">
+              Sign in
+            </Link>
+          </p>
         </div>
-      </section>
-    </>
+      </div>
+    </div>
   );
 }

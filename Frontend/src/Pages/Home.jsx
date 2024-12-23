@@ -8,11 +8,12 @@ export default function Home() {
       <div
         className="container-fluid hero-section text-center"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1729882417531-eead4fe0bb2b?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')", // Replace with your image
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1729882417531-eead4fe0bb2b?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')", // Replace with your image
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-          minHeight: "80vh",
+          height: "100vh", // Full viewport height
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -43,12 +44,44 @@ export default function Home() {
           Dive into a world of creativity, insights, and inspiration. Discover
           the extraordinary in the ordinary. Read, share, and explore!
         </p>
+
+        {/* Explore Posts Button */}
+        <button
+          className="mt-4"
+          style={{
+            fontSize: "1.2rem",
+            padding: "10px 20px",
+            borderRadius: "50px", // Fully rounded button
+            backgroundColor: "#4caf50",
+            border: "none",
+            color: "#fff",
+            transition: "background-color 0.3s ease, transform 0.3s ease",
+          }}
+          onClick={() => {
+            document.getElementById("latest-posts").scrollIntoView({
+              behavior: "smooth",
+            });
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.backgroundColor = "rgb(59 151 61)";
+            e.target.style.transform = "scale(1.05)";
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.backgroundColor = "#4caf50";
+            e.target.style.transform = "scale(1)";
+          }}
+        >
+          Explore Posts
+        </button>
       </div>
 
       {/* Latest Posts Section */}
       <div
         className="container-fluid py-5"
-        style={{ backgroundColor: "#1f1f1f" }}
+        id="latest-posts"
+        style={{
+          backgroundColor: "#1f1f1f",
+        }}
       >
         <div className="mb-5 text-center">
           <h2
@@ -86,12 +119,9 @@ export default function Home() {
           backgroundColor: "#111",
           color: "#777",
           fontSize: "0.9rem",
-          marginTop: "",
         }}
       >
-        <p>
-          &copy; {new Date().getFullYear()} My Blog. All Rights Reserved.
-        </p>
+        <p>&copy; {new Date().getFullYear()} My Blog. All Rights Reserved.</p>
         <p>
           Made with ❤️ by{" "}
           <a

@@ -66,7 +66,7 @@ export default function Blog() {
           <h1 className="fw-bold text-white mb-4 display-4 text-center">
             {singlePost && singlePost.title}
           </h1>
-          
+
           <img
             src={singlePost && `${BaseUrl}/images/${singlePost.image}`}
             alt="Blog Post"
@@ -86,7 +86,9 @@ export default function Blog() {
           <h3 className="mt-5 mb-4">Leave a Comment</h3>
           <form>
             <div className="mb-3">
-              <label htmlFor="comment" className="form-label">Comment</label>
+              <label htmlFor="comment" className="form-label">
+                Comment
+              </label>
               <textarea
                 className="form-control"
                 id="comment"
@@ -128,8 +130,21 @@ export default function Blog() {
           {singlePost &&
             singlePost.comments &&
             singlePost.comments.map((elem, index) => {
+              // Format createdAt using toLocaleString()
+              const createdAt = new Date(elem.createdAt).toLocaleDateString(
+                "en-US",
+                {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                }
+              );
+
               return (
-                <div key={index} className="bg-secondary p-3 rounded mb-3 d-flex">
+                <div
+                  key={index}
+                  className="bg-dark p-3 rounded mb-3 d-flex position-relative text-white"
+                >
                   <img
                     src={`${BaseUrl}/images/${elem.userId.profile}`}
                     alt="User"
@@ -138,11 +153,27 @@ export default function Blog() {
                       width: "50px",
                       height: "50px",
                       objectFit: "cover",
+                      border: "2px solid #2ecc71", // Green border
+                      padding: "2px", // Adds a small space between the border and image
                     }}
                   />
+
                   <div>
                     <h5 className="mb-1">{elem.userId.FullName}</h5>
                     <p className="mb-0">{elem.comment}</p>
+
+                    {/* Display createdAt timestamp at top-right corner */}
+                    <div
+                      className="text-white"
+                      style={{
+                        fontSize: "0.9em",
+                        position: "absolute",
+                        top: "10px",
+                        right: "10px",
+                      }}
+                    >
+                      {createdAt}
+                    </div>
                   </div>
                 </div>
               );

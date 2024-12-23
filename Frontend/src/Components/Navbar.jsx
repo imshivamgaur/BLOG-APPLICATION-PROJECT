@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { BaseUrl, post } from "../services/Endpoint";
@@ -26,11 +26,31 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark p-3 shadow-lg" style={{ backgroundColor: "#1f1f1f" }}>
+    <nav
+      className="navbar navbar-expand-lg navbar-dark shadow-lg"
+      style={{
+        position: "fixed", // Keep the navbar fixed
+        top: "0", // Position at the top
+        width: "100%", // Full-width navbar
+        zIndex: "1030", // High z-index to stay on top
+        backgroundColor: "rgba(31, 31, 31, 0.7)", // Semi-transparent background
+        backdropFilter: "blur(10px)", // Add the blur effect
+        WebkitBackdropFilter: "blur(10px)", // For Safari support
+        borderBottom: "1px solid rgba(255, 255, 255, 0.2)", // Optional border for better aesthetics
+      }}
+    >
       <div className="container-fluid d-flex justify-content-between align-items-center">
-        <Link to={"/"} className="navbar-brand text-white">
-          <h1 className="mx-5 fs-2 fw-bold logo-hover">
-            CodeBySR
+        <Link to={"/"} className="navbar-brand">
+          <h1
+            className=" mx-5 fs-2 fw-bold logo-hover"
+            style={{
+              margin: "0", // Remove default margins
+              display: "flex",
+              alignItems: "center",
+              height: "100%", // Ensures it takes the full height of the navbar
+            }}
+          >
+            SR BLOGS
           </h1>
         </Link>
         <div className="d-flex mx-5 align-items-center">
@@ -41,16 +61,21 @@ export default function Navbar() {
             </Link>
           ) : (
             <>
-              <p className=" me-3 fs-5 fw-bold mb-0" style={{ color: "gray" }}>{user.FullName}</p> {/* Increased font size */}
+              <p
+                className="me-3 fs-5 fw-bold mb-0"
+                style={{ color: "gray", margin: "0" }}
+              >
+                {user.FullName}
+              </p>
               <div className="dropdown">
                 <div
                   className="avatar-container pointer rounded-circle overflow-hidden bg-info"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                   style={{
-                    width: "50px",   // Increased width
-                    height: "50px",  // Increased height
-                    cursor: "pointer"
+                    width: "50px", // Increased width
+                    height: "50px", // Increased height
+                    cursor: "pointer",
                   }}
                 >
                   <img
@@ -59,7 +84,7 @@ export default function Navbar() {
                     alt="Profile"
                     style={{
                       objectFit: "cover",
-                      borderRadius: "50%"  // Ensures the image stays circular
+                      borderRadius: "50%", // Ensures the image stays circular
                     }}
                   />
                 </div>
